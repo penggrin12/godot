@@ -310,15 +310,16 @@ int DebugAdapterProtocol::parse_variant(const Variant &p_var) {
 			variable_list.insert(id, arr);
 			return id;
 		}
-		case Variant::AABB: {
+		case Variant::AABB:
+		case Variant::AABBI: {
 			int id = variable_id++;
 			AABB aabb = p_var;
-			const String type_vec3 = Variant::get_type_name(Variant::VECTOR3);
+			const String type_vec = Variant::get_type_name(p_var.get_type() == Variant::AABB ? Variant::VECTOR3 : Variant::VECTOR3I);
 			DAP::Variable position, size;
 			position.name = "position";
 			size.name = "size";
-			position.type = type_vec3;
-			size.type = type_vec3;
+			position.type = type_vec;
+			size.type = type_vec;
 			position.value = String(aabb.position);
 			size.value = String(aabb.size);
 			position.variablesReference = parse_variant(aabb.position);

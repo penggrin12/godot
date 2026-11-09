@@ -472,6 +472,12 @@ void PropertySelector::_create_subproperties(TreeItem *p_parent_item, Variant::T
 			_create_subproperty(p_parent_item, "end", Variant::VECTOR3);
 		} break;
 
+		case Variant::AABBI: {
+			_create_subproperty(p_parent_item, "position", Variant::VECTOR3I);
+			_create_subproperty(p_parent_item, "size", Variant::VECTOR3I);
+			_create_subproperty(p_parent_item, "end", Variant::VECTOR3I);
+		} break;
+
 		case Variant::BASIS: {
 			_create_subproperty(p_parent_item, "x", Variant::VECTOR3);
 			_create_subproperty(p_parent_item, "y", Variant::VECTOR3);

@@ -1256,6 +1256,22 @@ Error decode_variant(Variant &r_variant, const uint8_t *p_buffer, int p_len, int
 			r_variant = varray;
 
 		} break;
+		case Variant::AABBI: {
+			ERR_FAIL_COND_V(len < 6 * 4, ERR_INVALID_DATA);
+			AABBi val;
+			val.position.x = decode_uint32(&buf[0]);
+			val.position.y = decode_uint32(&buf[4]);
+			val.position.z = decode_uint32(&buf[8]);
+			val.size.x = decode_uint32(&buf[12]);
+			val.size.y = decode_uint32(&buf[16]);
+			val.size.z = decode_uint32(&buf[20]);
+			r_variant = val;
+
+			if (r_len) {
+				(*r_len) += 6 * 4;
+			}
+
+		} break;
 		default: {
 			ERR_FAIL_V(ERR_BUG);
 		}
@@ -2077,6 +2093,19 @@ Error encode_variant(const Variant &p_variant, uint8_t *p_buffer, int &r_len, bo
 			}
 
 			r_len += sizeof(real_t) * 4 * len;
+
+		} break;
+		case Variant::AABBI: {
+			if (buf) {
+				AABBi aabbi = p_variant;
+				encode_uint32(aabbi.position.x, &buf[0]);
+				encode_uint32(aabbi.position.y, &buf[4]);
+				encode_uint32(aabbi.position.z, &buf[8]);
+				encode_uint32(aabbi.size.x, &buf[12]);
+				encode_uint32(aabbi.size.y, &buf[16]);
+				encode_uint32(aabbi.size.z, &buf[20]);
+			}
+			r_len += 6 * 4;
 
 		} break;
 		default: {

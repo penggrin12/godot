@@ -312,6 +312,10 @@ SETGET_STRUCT(AABB, Vector3, position)
 SETGET_STRUCT(AABB, Vector3, size)
 SETGET_STRUCT_FUNC(AABB, Vector3, end, set_end, get_end)
 
+SETGET_STRUCT(AABBi, Vector3i, position)
+SETGET_STRUCT(AABBi, Vector3i, size)
+SETGET_STRUCT_FUNC(AABBi, Vector3i, end, set_end, get_end)
+
 SETGET_STRUCT_CUSTOM(Transform2D, Vector2, x, columns[0])
 SETGET_STRUCT_CUSTOM(Transform2D, Vector2, y, columns[1])
 SETGET_STRUCT_CUSTOM(Transform2D, Vector2, origin, columns[2])

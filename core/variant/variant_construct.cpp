@@ -146,7 +146,13 @@ void Variant::_register_variant_constructors() {
 
 	add_constructor<VariantConstructNoArgs<::AABB>>(sarray());
 	add_constructor<VariantConstructor<::AABB, ::AABB>>(sarray("from"));
+	add_constructor<VariantConstructor<::AABB, ::AABBi>>(sarray("from"));
 	add_constructor<VariantConstructor<::AABB, Vector3, Vector3>>(sarray("position", "size"));
+
+	add_constructor<VariantConstructNoArgs<::AABBi>>(sarray());
+	add_constructor<VariantConstructor<::AABBi, ::AABBi>>(sarray("from"));
+	add_constructor<VariantConstructor<::AABBi, ::AABB>>(sarray("from"));
+	add_constructor<VariantConstructor<::AABBi, Vector3i, Vector3i>>(sarray("position", "size"));
 
 	add_constructor<VariantConstructNoArgs<Basis>>(sarray());
 	add_constructor<VariantConstructor<Basis, Basis>>(sarray("from"));

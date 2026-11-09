@@ -883,6 +883,8 @@ Variant VariantUtilityFunctions::type_convert(const Variant &p_variant, const Va
 			return p_variant.operator Quaternion();
 		case Variant::Type::AABB:
 			return p_variant.operator ::AABB();
+		case Variant::Type::AABBI:
+			return p_variant.operator ::AABBi();
 		case Variant::Type::BASIS:
 			return p_variant.operator Basis();
 		case Variant::Type::TRANSFORM3D:

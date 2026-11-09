@@ -233,6 +233,7 @@ uint32_t PackedDataContainer::_pack(const Variant &p_data, Vector<uint8_t> &r_tm
 		case Variant::PLANE:
 		case Variant::QUATERNION:
 		case Variant::AABB:
+		case Variant::AABBI:
 		case Variant::BASIS:
 		case Variant::TRANSFORM3D:
 		case Variant::PACKED_BYTE_ARRAY:

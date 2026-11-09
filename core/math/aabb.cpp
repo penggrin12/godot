@@ -30,6 +30,7 @@
 
 #include "aabb.h"
 
+#include "core/math/aabbi.h"
 #include "core/string/ustring.h"
 #include "core/variant/variant.h"
 
@@ -442,4 +443,8 @@ Variant AABB::intersects_ray_bind(const Vector3 &p_from, const Vector3 &p_dir) c
 
 AABB::operator String() const {
 	return "[P: " + String(position) + ", S: " + String(size) + "]";
+}
+
+AABB::operator AABBi() const {
+	return AABBi(position, size);
 }

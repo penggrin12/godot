@@ -5,7 +5,7 @@
 	</brief_description>
 	<description>
 		The [Rect2i] built-in [Variant] type represents an axis-aligned rectangle in a 2D space, using integer coordinates. It is defined by its [member position] and [member size], which are [Vector2i]. Because it does not rotate, it is frequently used for fast overlap tests (see [method intersects]).
-		For floating-point coordinates, see [Rect2].
+		For floating-point coordinates, see [Rect2]. The 3D equivalent to [Rect2i] is [AABBi].
 		[b]Note:[/b] Negative values for [member size] are not supported. With negative size, most [Rect2i] methods do not work correctly. Use [method abs] to get an equivalent [Rect2i] with a non-negative size.
 		[b]Note:[/b] In a boolean context, a [Rect2i] evaluates to [code]false[/code] if both [member position] and [member size] are zero (equal to [constant Vector2i.ZERO]). Otherwise, it always evaluates to [code]true[/code].
 	</description>

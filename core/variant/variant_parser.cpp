@@ -825,6 +825,16 @@ Error VariantParser::parse_value(Token &r_token, Variant &r_value, Stream *p_str
 			}
 
 			r_value = AABB(Vector3(args[0], args[1], args[2]), Vector3(args[3], args[4], args[5]));
+		} else if (id == "AABBi") {
+			Vector<int32_t> args;
+			RETURN_IF_ERROR(_parse_construct<int32_t>(p_stream, args, r_line, r_err_str));
+
+			if (args.size() != 6) {
+				r_err_str = "Expected 6 arguments for constructor";
+				return ERR_PARSE_ERROR;
+			}
+
+			r_value = AABBi(Vector3i(args[0], args[1], args[2]), Vector3i(args[3], args[4], args[5]));
 		} else if (id == "Basis" || id == "Matrix3") { //compatibility
 			Vector<real_t> args;
 			RETURN_IF_ERROR(_parse_construct<real_t>(p_stream, args, r_line, r_err_str));
@@ -1947,6 +1957,10 @@ Error VariantWriter::write(const Variant &p_variant, StoreStringFunc p_store_str
 		case Variant::AABB: {
 			AABB aabb = p_variant;
 			p_store_string_func(p_store_string_ud, "AABB(" + rtos_fix(aabb.position.x, p_compat) + ", " + rtos_fix(aabb.position.y, p_compat) + ", " + rtos_fix(aabb.position.z, p_compat) + ", " + rtos_fix(aabb.size.x, p_compat) + ", " + rtos_fix(aabb.size.y, p_compat) + ", " + rtos_fix(aabb.size.z, p_compat) + ")");
+		} break;
+		case Variant::AABBI: {
+			AABBi aabbi = p_variant;
+			p_store_string_func(p_store_string_ud, "AABBi(" + itos(aabbi.position.x) + ", " + itos(aabbi.position.y) + ", " + itos(aabbi.position.z) + ", " + itos(aabbi.size.x) + ", " + itos(aabbi.size.y) + ", " + itos(aabbi.size.z) + ")");
 		} break;
 		case Variant::QUATERNION: {
 			Quaternion quaternion = p_variant;

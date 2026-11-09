@@ -243,6 +243,7 @@ bool arg_default_value_is_assignable_to_type(const Context &p_context, const Var
 		case Variant::QUATERNION:
 		case Variant::PLANE:
 		case Variant::AABB:
+		case Variant::AABBI:
 		case Variant::COLOR:
 		case Variant::VECTOR2:
 		case Variant::RECT2:

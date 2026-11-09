@@ -197,6 +197,8 @@ struct PtrToArg<Quaternion> : Internal::PtrToArgDirect<Quaternion> {};
 template <>
 struct PtrToArg<AABB> : Internal::PtrToArgByReference<AABB> {};
 template <>
+struct PtrToArg<AABBi> : Internal::PtrToArgByReference<AABBi> {};
+template <>
 struct PtrToArg<Basis> : Internal::PtrToArgByReference<Basis> {};
 template <>
 struct PtrToArg<Transform3D> : Internal::PtrToArgByReference<Transform3D> {};

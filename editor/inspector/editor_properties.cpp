@@ -2587,6 +2587,78 @@ EditorPropertyAABB::EditorPropertyAABB() {
 	set_bottom_editor(g);
 }
 
+///////////////////// AABBi /////////////////////////
+
+void EditorPropertyAABBi::_set_read_only(bool p_read_only) {
+	for (int i = 0; i < 6; i++) {
+		spin[i]->set_read_only(p_read_only);
+	}
+}
+
+void EditorPropertyAABBi::_value_changed(double val, const String &p_name) {
+	AABBi p;
+	p.position.x = spin[0]->get_value();
+	p.position.y = spin[1]->get_value();
+	p.position.z = spin[2]->get_value();
+	p.size.x = spin[3]->get_value();
+	p.size.y = spin[4]->get_value();
+	p.size.z = spin[5]->get_value();
+	emit_changed(get_edited_property(), p, p_name);
+}
+
+void EditorPropertyAABBi::update_property() {
+	AABBi val = get_edited_property_value();
+	spin[0]->set_value_no_signal(val.position.x);
+	spin[1]->set_value_no_signal(val.position.y);
+	spin[2]->set_value_no_signal(val.position.z);
+	spin[3]->set_value_no_signal(val.size.x);
+	spin[4]->set_value_no_signal(val.size.y);
+	spin[5]->set_value_no_signal(val.size.z);
+}
+
+void EditorPropertyAABBi::_notification(int p_what) {
+	switch (p_what) {
+		case NOTIFICATION_THEME_CHANGED: {
+			const Color *colors = _get_property_colors();
+			for (int i = 0; i < 6; i++) {
+				spin[i]->add_theme_color_override("label_color", colors[i % 3]);
+			}
+		} break;
+	}
+}
+
+void EditorPropertyAABBi::setup(const EditorPropertyRangeHint &p_range_hint) {
+	for (int i = 0; i < 6; i++) {
+		spin[i]->set_min(p_range_hint.min);
+		spin[i]->set_max(p_range_hint.max);
+		spin[i]->set_step(1);
+		spin[i]->set_allow_greater(true);
+		spin[i]->set_allow_lesser(true);
+		spin[i]->set_suffix(p_range_hint.suffix);
+		spin[i]->set_editing_integer(true);
+	}
+}
+
+EditorPropertyAABBi::EditorPropertyAABBi() {
+	GridContainer *g = memnew(GridContainer);
+	g->set_columns(3);
+	add_child(g);
+
+	static const char *desc[6] = { "x", "y", "z", "w", "h", "d" };
+	for (int i = 0; i < 6; i++) {
+		spin[i] = memnew(EditorSpinSlider);
+		spin[i]->set_label(desc[i]);
+		spin[i]->set_accessibility_name(desc[i]);
+		spin[i]->set_flat(true);
+
+		g->add_child(spin[i]);
+		spin[i]->set_h_size_flags(SIZE_EXPAND_FILL);
+		add_focusable(spin[i]);
+		spin[i]->connect(SceneStringName(value_changed), callable_mp(this, &EditorPropertyAABBi::_value_changed).bind(desc[i]));
+	}
+	set_bottom_editor(g);
+}
+
 ///////////////////// TRANSFORM2D /////////////////////////
 
 void EditorPropertyTransform2D::_set_read_only(bool p_read_only) {
@@ -4257,6 +4329,11 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 		} break;
 		case Variant::AABB: {
 			EditorPropertyAABB *editor = memnew(EditorPropertyAABB);
+			editor->setup(_parse_range_hint(p_hint, p_hint_text, default_float_step));
+			return editor;
+		} break;
+		case Variant::AABBI: {
+			EditorPropertyAABBi *editor = memnew(EditorPropertyAABBi);
 			editor->setup(_parse_range_hint(p_hint, p_hint_text, default_float_step));
 			return editor;
 		} break;

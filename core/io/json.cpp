@@ -741,6 +741,11 @@ Variant JSON::_from_native(const Variant &p_variant, bool p_full_objects, int p_
 			Array args = { aabb.position.x, aabb.position.y, aabb.position.z, aabb.size.x, aabb.size.y, aabb.size.z };
 			RETURN_ARGS;
 		} break;
+		case Variant::AABBI: {
+			const AABBi aabbi = p_variant;
+			Array args = { aabbi.position.x, aabbi.position.y, aabbi.position.z, aabbi.size.x, aabbi.size.y, aabbi.size.z };
+			RETURN_ARGS;
+		} break;
 		case Variant::BASIS: {
 			const Basis b = p_variant;
 
@@ -1224,6 +1229,15 @@ Variant JSON::_to_native(const Variant &p_json, bool p_allow_objects, int p_dept
 					aabb.size = Vector3(args[3], args[4], args[5]);
 
 					return aabb;
+				} break;
+				case Variant::AABBI: {
+					LOAD_ARGS_CHECK_SIZE(6);
+
+					AABBi aabbi;
+					aabbi.position = Vector3i(args[0], args[1], args[2]);
+					aabbi.size = Vector3i(args[3], args[4], args[5]);
+
+					return aabbi;
 				} break;
 				case Variant::BASIS: {
 					LOAD_ARGS_CHECK_SIZE(9);

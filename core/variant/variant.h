@@ -34,6 +34,7 @@
 #include "core/error/error_macros.h"
 #include "core/io/ip_address.h"
 #include "core/math/aabb.h"
+#include "core/math/aabbi.h"
 #include "core/math/basis.h"
 #include "core/math/color.h"
 #include "core/math/face3.h"
@@ -142,6 +143,8 @@ public:
 		PACKED_VECTOR3_ARRAY,
 		PACKED_COLOR_ARRAY,
 		PACKED_VECTOR4_ARRAY,
+
+		AABBI,
 
 		VARIANT_MAX
 	};
@@ -258,6 +261,7 @@ private:
 		double _float;
 		Transform2D *_transform2d;
 		::AABB *_aabb;
+		::AABBi *_aabbi;
 		Basis *_basis;
 		Transform3D *_transform3d;
 		Projection *_projection;
@@ -314,6 +318,8 @@ private:
 		true, //PACKED_VECTOR3_ARRAY,
 		true, //PACKED_COLOR_ARRAY,
 		true, //PACKED_VECTOR4_ARRAY,
+
+		true, //AABBI,
 	};
 
 	_FORCE_INLINE_ void clear() {
@@ -446,6 +452,7 @@ public:
 	operator Vector4i() const;
 	operator Plane() const;
 	operator ::AABB() const;
+	operator ::AABBi() const;
 	operator Quaternion() const;
 	operator Basis() const;
 	operator Transform2D() const;
@@ -521,6 +528,7 @@ public:
 	Variant(const Vector4i &p_vector4i);
 	Variant(const Plane &p_plane);
 	Variant(const ::AABB &p_aabb);
+	Variant(const ::AABBi &p_aabbi);
 	Variant(const Quaternion &p_quat);
 	Variant(const Basis &p_matrix);
 	Variant(const Transform2D &p_transform);

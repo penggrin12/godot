@@ -215,6 +215,7 @@ void (*type_init_function_table[])(Variant *) = {
 	&VariantInitializer<PackedVector3Array>::init, // PACKED_VECTOR3_ARRAY.
 	&VariantInitializer<PackedColorArray>::init, // PACKED_COLOR_ARRAY.
 	&VariantInitializer<PackedVector4Array>::init, // PACKED_VECTOR4_ARRAY.
+	&VariantInitializer<AABBi>::init, // AABBI.
 };
 
 #if defined(__GNUC__) || defined(__clang__)
@@ -352,6 +353,7 @@ void (*type_init_function_table[])(Variant *) = {
 		&&OPCODE_TYPE_ADJUST_PLANE, \
 		&&OPCODE_TYPE_ADJUST_QUATERNION, \
 		&&OPCODE_TYPE_ADJUST_AABB, \
+		&&OPCODE_TYPE_ADJUST_AABBI, \
 		&&OPCODE_TYPE_ADJUST_BASIS, \
 		&&OPCODE_TYPE_ADJUST_TRANSFORM3D, \
 		&&OPCODE_TYPE_ADJUST_PROJECTION, \
@@ -456,6 +458,7 @@ void (*type_init_function_table[])(Variant *) = {
 #define OP_GET_PROJECTION get_projection
 #define OP_GET_PLANE get_plane
 #define OP_GET_AABB get_aabb
+#define OP_GET_AABBI get_aabbi
 #define OP_GET_BASIS get_basis
 #define OP_GET_RID get_rid
 
@@ -3843,6 +3846,7 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 			OPCODE_TYPE_ADJUST(PLANE, Plane);
 			OPCODE_TYPE_ADJUST(QUATERNION, Quaternion);
 			OPCODE_TYPE_ADJUST(AABB, AABB);
+			OPCODE_TYPE_ADJUST(AABBI, AABBi);
 			OPCODE_TYPE_ADJUST(BASIS, Basis);
 			OPCODE_TYPE_ADJUST(TRANSFORM3D, Transform3D);
 			OPCODE_TYPE_ADJUST(PROJECTION, Projection);

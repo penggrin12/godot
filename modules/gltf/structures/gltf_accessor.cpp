@@ -487,6 +487,7 @@ int64_t GLTFAccessor::_get_numbers_per_variant_for_gltf(Variant::Type p_variant_
 			return 4;
 		case Variant::TRANSFORM2D:
 		case Variant::AABB:
+		case Variant::AABBI:
 		case Variant::BASIS:
 			return 9;
 		case Variant::TRANSFORM3D:
@@ -945,6 +946,24 @@ Array GLTFAccessor::decode_as_variants(const Ref<GLTFState> &p_gltf_state, Varia
 					} break;
 				}
 				ret[value_index] = aabb;
+			} break;
+			case Variant::AABBI: {
+				AABBi aabbi;
+				switch (numbers_to_read) {
+					case 4: {
+						aabbi.position = Vector3i(numbers[number_index + 0], numbers[number_index + 1], 0);
+						aabbi.size = Vector3i(numbers[number_index + 2], numbers[number_index + 3], 0);
+					} break;
+					case 9: {
+						aabbi.position = Vector3i(numbers[number_index + 0], numbers[number_index + 1], numbers[number_index + 2]);
+						aabbi.size = Vector3i(numbers[number_index + 3], numbers[number_index + 4], numbers[number_index + 5]);
+					} break;
+					case 16: {
+						aabbi.position = Vector3i(numbers[number_index + 0], numbers[number_index + 1], numbers[number_index + 2]);
+						aabbi.size = Vector3i(numbers[number_index + 4], numbers[number_index + 5], numbers[number_index + 6]);
+					} break;
+				}
+				ret[value_index] = aabbi;
 			} break;
 			case Variant::BASIS: {
 				Basis b;

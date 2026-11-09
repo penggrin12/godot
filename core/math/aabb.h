@@ -40,6 +40,7 @@
  */
 
 class Variant;
+struct AABBi;
 
 struct [[nodiscard]] AABB {
 	Vector3 position;
@@ -114,6 +115,10 @@ struct [[nodiscard]] AABB {
 		return AABB(position + size.minf(0), size.abs());
 	}
 
+	_FORCE_INLINE_ AABB round() const {
+		return AABB(position.round(), size.round());
+	}
+
 	Variant intersects_segment_bind(const Vector3 &p_from, const Vector3 &p_to) const;
 	Variant intersects_ray_bind(const Vector3 &p_from, const Vector3 &p_dir) const;
 
@@ -143,6 +148,7 @@ struct [[nodiscard]] AABB {
 	}
 
 	explicit operator String() const;
+	operator AABBi() const;
 
 	AABB() = default;
 	constexpr AABB(const Vector3 &p_pos, const Vector3 &p_size) :

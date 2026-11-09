@@ -85,6 +85,7 @@ enum {
 	VARIANT_VECTOR4I = 51,
 	VARIANT_PROJECTION = 52,
 	VARIANT_PACKED_VECTOR4_ARRAY = 53,
+	VARIANT_AABBI = 54,
 	OBJECT_EMPTY = 0,
 	OBJECT_EXTERNAL_RESOURCE = 1,
 	OBJECT_INTERNAL_RESOURCE = 2,
@@ -94,7 +95,8 @@ enum {
 	// Version 4: New string ID for ext/subresources, breaks forward compat.
 	// Version 5: Ability to store script class in the header.
 	// Version 6: Added PackedVector4Array Variant type.
-	FORMAT_VERSION = 6,
+	// Version 7: Added AABBi Variant type.
+	FORMAT_VERSION = 7,
 	FORMAT_VERSION_CAN_RENAME_DEPS = 1,
 	FORMAT_VERSION_NO_NODEPATH_PROPERTY = 3,
 };
@@ -601,6 +603,17 @@ Error ResourceLoaderBinary::parse_variant(Variant &r_v) {
 			ERR_FAIL_COND_V(err != OK, err);
 
 			r_v = array;
+
+		} break;
+		case VARIANT_AABBI: {
+			AABBi v;
+			v.position.x = f->get_32();
+			v.position.y = f->get_32();
+			v.position.z = f->get_32();
+			v.size.x = f->get_32();
+			v.size.y = f->get_32();
+			v.size.z = f->get_32();
+			r_v = v;
 
 		} break;
 		default: {
@@ -1959,6 +1972,17 @@ void ResourceFormatSaverBinaryInstance::write_variant(Ref<FileAccess> r_file, co
 				r_file->store_real(r[i].z);
 				r_file->store_real(r[i].w);
 			}
+
+		} break;
+		case Variant::AABBI: {
+			r_file->store_32(VARIANT_AABBI);
+			AABBi val = p_property;
+			r_file->store_32(uint32_t(val.position.x));
+			r_file->store_32(uint32_t(val.position.y));
+			r_file->store_32(uint32_t(val.position.z));
+			r_file->store_32(uint32_t(val.size.x));
+			r_file->store_32(uint32_t(val.size.y));
+			r_file->store_32(uint32_t(val.size.z));
 
 		} break;
 		default: {

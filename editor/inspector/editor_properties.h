@@ -598,6 +598,21 @@ public:
 	EditorPropertyAABB();
 };
 
+class EditorPropertyAABBi : public EditorProperty {
+	GDCLASS(EditorPropertyAABBi, EditorProperty);
+	EditorSpinSlider *spin[6];
+	void _value_changed(double p_val, const String &p_name);
+
+protected:
+	virtual void _set_read_only(bool p_read_only) override;
+	void _notification(int p_what);
+
+public:
+	virtual void update_property() override;
+	void setup(const EditorPropertyRangeHint &p_range_hint);
+	EditorPropertyAABBi();
+};
+
 class EditorPropertyTransform2D : public EditorProperty {
 	GDCLASS(EditorPropertyTransform2D, EditorProperty);
 	EditorSpinSlider *spin[6];

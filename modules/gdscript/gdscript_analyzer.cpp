@@ -5031,6 +5031,7 @@ void GDScriptAnalyzer::reduce_subscript(GDScriptParser::SubscriptNode *p_subscri
 							case Variant::PLANE:
 							case Variant::QUATERNION:
 							case Variant::AABB:
+							case Variant::AABBI:
 							case Variant::OBJECT:
 								error = index_type.builtin_type != Variant::STRING && index_type.builtin_type != Variant::STRING_NAME;
 								break;
@@ -5173,6 +5174,10 @@ void GDScriptAnalyzer::reduce_subscript(GDScriptParser::SubscriptNode *p_subscri
 					case Variant::AABB:
 					case Variant::BASIS:
 						result_type.builtin_type = Variant::VECTOR3;
+						break;
+					// Return Vector3I.
+					case Variant::AABBI:
+						result_type.builtin_type = Variant::VECTOR3I;
 						break;
 					// Return Color.
 					case Variant::PACKED_COLOR_ARRAY:

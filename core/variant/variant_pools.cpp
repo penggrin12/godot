@@ -31,6 +31,7 @@
 #include "core/variant/variant_pools.h"
 
 #include "core/math/aabb.h"
+#include "core/math/aabbi.h"
 #include "core/math/projection.h"
 #include "core/math/transform_2d.h"
 #include "core/math/transform_3d.h"
@@ -42,6 +43,7 @@ union BucketSmall {
 	~BucketSmall() {}
 	Transform2D _transform2d;
 	::AABB _aabb;
+	::AABBi _aabbi;
 };
 static_assert(sizeof(BucketSmall) == VariantPools::BUCKET_SMALL);
 static_assert(alignof(BucketSmall) == alignof(real_t));

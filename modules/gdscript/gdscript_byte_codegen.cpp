@@ -84,6 +84,7 @@ uint32_t GDScriptByteCodeGenerator::add_temporary(const GDScriptDataType &p_type
 			case Variant::PLANE:
 			case Variant::QUATERNION:
 			case Variant::AABB:
+			case Variant::AABBI:
 			case Variant::BASIS:
 			case Variant::TRANSFORM3D:
 			case Variant::PROJECTION:
@@ -480,6 +481,9 @@ void GDScriptByteCodeGenerator::write_type_adjust(const Address &p_target, Varia
 			break;
 		case Variant::AABB:
 			append_opcode(GDScriptFunction::OPCODE_TYPE_ADJUST_AABB);
+			break;
+		case Variant::AABBI:
+			append_opcode(GDScriptFunction::OPCODE_TYPE_ADJUST_AABBI);
 			break;
 		case Variant::BASIS:
 			append_opcode(GDScriptFunction::OPCODE_TYPE_ADJUST_BASIS);

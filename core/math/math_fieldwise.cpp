@@ -164,6 +164,19 @@ Variant fieldwise_assign(const Variant &p_target, const Variant &p_source, const
 			return target;
 		}
 
+		case Variant::AABBI: {
+			SETUP_TYPE(AABBi)
+
+			/**/ TRY_TRANSFER_FIELD("px", position.x)
+			else TRY_TRANSFER_FIELD("py", position.y)
+			else TRY_TRANSFER_FIELD("pz", position.z)
+			else TRY_TRANSFER_FIELD("sx", size.x)
+			else TRY_TRANSFER_FIELD("sy", size.y)
+			else TRY_TRANSFER_FIELD("sz", size.z)
+
+			return target;
+		}
+
 		case Variant::TRANSFORM2D: {
 			SETUP_TYPE(Transform2D)
 

@@ -119,6 +119,9 @@ String Variant::get_type_name(Variant::Type p_type) {
 		case AABB: {
 			return "AABB";
 		}
+		case AABBI: {
+			return "AABBi";
+		}
 		case QUATERNION: {
 			return "Quaternion";
 		}
@@ -354,6 +357,24 @@ bool Variant::can_convert(Variant::Type p_type_from, Variant::Type p_type_to) {
 		case QUATERNION: {
 			static const Type valid[] = {
 				BASIS,
+				NIL
+			};
+
+			valid_types = valid;
+
+		} break;
+		case AABB: {
+			static const Type valid[] = {
+				AABBI,
+				NIL
+			};
+
+			valid_types = valid;
+
+		} break;
+		case AABBI: {
+			static const Type valid[] = {
+				AABB,
 				NIL
 			};
 
@@ -703,6 +724,24 @@ bool Variant::can_convert_strict(Variant::Type p_type_from, Variant::Type p_type
 			valid_types = valid;
 
 		} break;
+		case AABB: {
+			static const Type valid[] = {
+				AABBI,
+				NIL
+			};
+
+			valid_types = valid;
+
+		} break;
+		case AABBI: {
+			static const Type valid[] = {
+				AABB,
+				NIL
+			};
+
+			valid_types = valid;
+
+		} break;
 		case BASIS: {
 			static const Type valid[] = {
 				QUATERNION,
@@ -957,6 +996,9 @@ bool Variant::is_zero() const {
 		case AABB: {
 			return *_data._aabb == ::AABB();
 		}
+		case AABBI: {
+			return *_data._aabbi == ::AABBi();
+		}
 		case QUATERNION: {
 			return *reinterpret_cast<const Quaternion *>(_data._mem) == Quaternion();
 		}
@@ -1051,6 +1093,9 @@ bool Variant::is_one() const {
 		}
 		case FLOAT: {
 			return _data._float == 1;
+		}
+		case AABBI: {
+			return *_data._aabbi == AABBi(1, 1, 1, 1, 1, 1);
 		}
 
 		case VECTOR2: {
@@ -1219,6 +1264,10 @@ void Variant::reference(const Variant &p_variant) {
 			_data._aabb = VariantPools::alloc<::AABB>();
 			memnew_placement(_data._aabb, ::AABB(*p_variant._data._aabb));
 		} break;
+		case AABBI: {
+			_data._aabbi = VariantPools::alloc<::AABBi>();
+			memnew_placement(_data._aabbi, ::AABBi(*p_variant._data._aabbi));
+		} break;
 		case QUATERNION: {
 			memnew_placement(_data._mem, Quaternion(*reinterpret_cast<const Quaternion *>(p_variant._data._mem)));
 		} break;
@@ -1344,6 +1393,9 @@ void Variant::zero() {
 		case FLOAT:
 			_data._float = 0;
 			break;
+		case AABBI:
+			*_data._aabbi = AABBi();
+			break;
 
 		case VECTOR2:
 			*reinterpret_cast<Vector2 *>(_data._mem) = Vector2();
@@ -1411,6 +1463,13 @@ void Variant::_clear_internal() {
 				_data._aabb->~AABB();
 				VariantPools::free(_data._aabb);
 				_data._aabb = nullptr;
+			}
+		} break;
+		case AABBI: {
+			if (_data._aabbi) {
+				_data._aabbi->~AABBi();
+				VariantPools::free(_data._aabbi);
+				_data._aabbi = nullptr;
 			}
 		} break;
 		case BASIS: {
@@ -1660,6 +1719,8 @@ String Variant::stringify(int p_recursion_count) const {
 			return String(operator Plane());
 		case AABB:
 			return String(operator ::AABB());
+		case AABBI:
+			return String(operator ::AABBi());
 		case QUATERNION:
 			return String(operator Quaternion());
 		case BASIS:
@@ -1914,8 +1975,20 @@ Variant::operator Plane() const {
 Variant::operator ::AABB() const {
 	if (type == AABB) {
 		return *_data._aabb;
+	} else if (type == AABBI) {
+		return ::AABB(*_data._aabbi);
 	} else {
 		return ::AABB();
+	}
+}
+
+Variant::operator ::AABBi() const {
+	if (type == AABBI) {
+		return *_data._aabbi;
+	} else if (type == AABB) {
+		return ::AABBi(*_data._aabb);
+	} else {
+		return ::AABBi();
 	}
 }
 
@@ -2489,6 +2562,12 @@ Variant::Variant(const ::AABB &p_aabb) :
 	memnew_placement(_data._aabb, ::AABB(p_aabb));
 }
 
+Variant::Variant(const ::AABBi &p_aabbi) :
+		type(AABBI) {
+	_data._aabbi = VariantPools::alloc<::AABBi>();
+	memnew_placement(_data._aabbi, ::AABBi(p_aabbi));
+}
+
 Variant::Variant(const Basis &p_matrix) :
 		type(BASIS) {
 	_data._basis = VariantPools::alloc<Basis>();
@@ -2751,6 +2830,9 @@ void Variant::operator=(const Variant &p_variant) {
 		case AABB: {
 			*_data._aabb = *(p_variant._data._aabb);
 		} break;
+		case AABBI: {
+			*_data._aabbi = *(p_variant._data._aabbi);
+		} break;
 		case QUATERNION: {
 			*reinterpret_cast<Quaternion *>(_data._mem) = *reinterpret_cast<const Quaternion *>(p_variant._data._mem);
 		} break;
@@ -2909,6 +2991,9 @@ uint32_t Variant::recursive_hash(int p_recursion_count) const {
 		} break;
 		case AABB: {
 			return HashMapHasherDefault::hash(*_data._aabb);
+		} break;
+		case AABBI: {
+			return HashMapHasherDefault::hash(*_data._aabbi);
 		} break;
 		case QUATERNION: {
 			uint32_t h = HASH_MURMUR3_SEED;
@@ -3300,6 +3385,13 @@ bool Variant::hash_compare(const Variant &p_variant, int p_recursion_count, bool
 		case AABB: {
 			const ::AABB *l = _data._aabb;
 			const ::AABB *r = p_variant._data._aabb;
+
+			return l->is_same(*r);
+		} break;
+
+		case AABBI: {
+			const ::AABBi *l = _data._aabbi;
+			const ::AABBi *r = p_variant._data._aabbi;
 
 			return l->is_same(*r);
 		} break;

@@ -5919,6 +5919,7 @@ void AnimationTrackEditor::_fetch_value_track_options(const NodePath &p_path, An
 		case Variant::PLANE:
 		case Variant::QUATERNION:
 		case Variant::AABB:
+		case Variant::AABBI:
 		case Variant::BASIS:
 		case Variant::TRANSFORM3D:
 		case Variant::PROJECTION:

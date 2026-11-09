@@ -68,6 +68,9 @@ public:
 			case Variant::AABB:
 				init_aabb(r_variant);
 				break;
+			case Variant::AABBI:
+				init_aabbi(r_variant);
+				break;
 			case Variant::BASIS:
 				init_basis(r_variant);
 				break;
@@ -171,6 +174,8 @@ public:
 	_FORCE_INLINE_ static const Quaternion *get_quaternion(const Variant *p_variant) { return reinterpret_cast<const Quaternion *>(p_variant->_data._mem); }
 	_FORCE_INLINE_ static ::AABB *get_aabb(Variant *p_variant) { return p_variant->_data._aabb; }
 	_FORCE_INLINE_ static const ::AABB *get_aabb(const Variant *p_variant) { return p_variant->_data._aabb; }
+	_FORCE_INLINE_ static ::AABBi *get_aabbi(Variant *p_variant) { return p_variant->_data._aabbi; }
+	_FORCE_INLINE_ static const ::AABBi *get_aabbi(const Variant *p_variant) { return p_variant->_data._aabbi; }
 	_FORCE_INLINE_ static Basis *get_basis(Variant *p_variant) { return p_variant->_data._basis; }
 	_FORCE_INLINE_ static const Basis *get_basis(const Variant *p_variant) { return p_variant->_data._basis; }
 	_FORCE_INLINE_ static Transform3D *get_transform(Variant *p_variant) { return p_variant->_data._transform3d; }
@@ -249,6 +254,11 @@ public:
 		r_variant->_data._aabb = VariantPools::alloc<AABB>();
 		memnew_placement(r_variant->_data._aabb, AABB);
 		r_variant->type = Variant::AABB;
+	}
+	_FORCE_INLINE_ static void init_aabbi(Variant *r_variant) {
+		r_variant->_data._aabbi = VariantPools::alloc<AABBi>();
+		memnew_placement(r_variant->_data._aabbi, AABBi);
+		r_variant->type = Variant::AABBI;
 	}
 	_FORCE_INLINE_ static void init_basis(Variant *r_variant) {
 		r_variant->_data._basis = VariantPools::alloc<Basis>();
@@ -422,6 +432,8 @@ public:
 				return get_basis(p_variant);
 			case Variant::AABB:
 				return get_aabb(p_variant);
+			case Variant::AABBI:
+				return get_aabbi(p_variant);
 			case Variant::COLOR:
 				return get_color(p_variant);
 			case Variant::STRING_NAME:
@@ -508,6 +520,8 @@ public:
 				return get_basis(p_variant);
 			case Variant::AABB:
 				return get_aabb(p_variant);
+			case Variant::AABBI:
+				return get_aabbi(p_variant);
 			case Variant::COLOR:
 				return get_color(p_variant);
 			case Variant::STRING_NAME:
@@ -752,6 +766,9 @@ template <>
 struct VariantInternalAccessor<::AABB> : _VariantInternalAccessorElsewhere<::AABB> {};
 
 template <>
+struct VariantInternalAccessor<::AABBi> : _VariantInternalAccessorElsewhere<::AABBi> {};
+
+template <>
 struct VariantInternalAccessor<Basis> : _VariantInternalAccessorElsewhere<Basis> {};
 
 template <>
@@ -866,6 +883,11 @@ struct VariantInitializer<Transform2D> {
 template <>
 struct VariantInitializer<AABB> {
 	static _FORCE_INLINE_ void init(Variant *r_variant) { VariantInternal::init_aabb(r_variant); }
+};
+
+template <>
+struct VariantInitializer<AABBi> {
+	static _FORCE_INLINE_ void init(Variant *r_variant) { VariantInternal::init_aabbi(r_variant); }
 };
 
 template <>

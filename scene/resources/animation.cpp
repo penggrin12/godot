@@ -5883,6 +5883,9 @@ Variant Animation::cast_to_blendwise(const Variant p_value) {
 		case Variant::RECT2I: {
 			return p_value.operator Rect2();
 		} break;
+		case Variant::AABBI: {
+			return p_value.operator ::AABB();
+		} break;
 		case Variant::VECTOR2I: {
 			return p_value.operator Vector2();
 		} break;
@@ -5920,6 +5923,9 @@ Variant Animation::cast_from_blendwise(const Variant p_value, const Variant::Typ
 		} break;
 		case Variant::RECT2I: {
 			return Rect2i(p_value.operator Rect2().round());
+		} break;
+		case Variant::AABBI: {
+			return AABBi(p_value.operator ::AABB().round());
 		} break;
 		case Variant::VECTOR2I: {
 			return Vector2i(p_value.operator Vector2().round());
@@ -6027,6 +6033,7 @@ Variant Animation::add_variant(const Variant &a, const Variant &b) {
 		} break;
 		case Variant::INT:
 		case Variant::RECT2I:
+		case Variant::AABBI:
 		case Variant::VECTOR2I:
 		case Variant::VECTOR3I:
 		case Variant::VECTOR4I:
@@ -6141,6 +6148,7 @@ Variant Animation::subtract_variant(const Variant &a, const Variant &b) {
 		} break;
 		case Variant::INT:
 		case Variant::RECT2I:
+		case Variant::AABBI:
 		case Variant::VECTOR2I:
 		case Variant::VECTOR3I:
 		case Variant::VECTOR4I:
@@ -6268,6 +6276,7 @@ Variant Animation::blend_variant(const Variant &a, const Variant &b, float c) {
 		case Variant::BOOL:
 		case Variant::INT:
 		case Variant::RECT2I:
+		case Variant::AABBI:
 		case Variant::VECTOR2I:
 		case Variant::VECTOR3I:
 		case Variant::VECTOR4I:
@@ -6405,6 +6414,7 @@ Variant Animation::interpolate_variant(const Variant &a, const Variant &b, float
 		case Variant::BOOL:
 		case Variant::INT:
 		case Variant::RECT2I:
+		case Variant::AABBI:
 		case Variant::VECTOR2I:
 		case Variant::VECTOR3I:
 		case Variant::VECTOR4I:
@@ -6592,6 +6602,7 @@ Variant Animation::cubic_interpolate_in_time_variant(const Variant &pre_a, const
 		case Variant::BOOL:
 		case Variant::INT:
 		case Variant::RECT2I:
+		case Variant::AABBI:
 		case Variant::VECTOR2I:
 		case Variant::VECTOR3I:
 		case Variant::VECTOR4I:
@@ -6794,6 +6805,7 @@ Variant Animation::makima_interpolate_in_time_variant(const Variant &pre_pre_a, 
 		case Variant::BOOL:
 		case Variant::INT:
 		case Variant::RECT2I:
+		case Variant::AABBI:
 		case Variant::VECTOR2I:
 		case Variant::VECTOR3I:
 		case Variant::VECTOR4I:

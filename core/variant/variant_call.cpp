@@ -2543,6 +2543,29 @@ static void _register_variant_builtin_methods_misc() {
 	bind_methodv(AABB, intersects_segment, &AABB::intersects_segment_bind, sarray("from", "to"), varray());
 	bind_methodv(AABB, intersects_ray, &AABB::intersects_ray_bind, sarray("from", "dir"), varray());
 
+	/* AABBi */
+
+	bind_method(AABBi, abs, sarray(), varray());
+	bind_method(AABBi, get_center, sarray(), varray());
+	bind_method(AABBi, get_volume, sarray(), varray());
+	bind_method(AABBi, has_volume, sarray(), varray());
+	bind_method(AABBi, has_surface, sarray(), varray());
+	bind_method(AABBi, has_point, sarray("point"), varray());
+	bind_method(AABBi, intersects, sarray("with"), varray());
+	bind_method(AABBi, encloses, sarray("with"), varray());
+	bind_method(AABBi, intersection, sarray("with"), varray());
+	bind_method(AABBi, merge, sarray("with"), varray());
+	bind_method(AABBi, expand, sarray("to_point"), varray());
+	bind_method(AABBi, grow, sarray("by"), varray());
+	bind_method(AABBi, get_support, sarray("direction"), varray());
+	bind_method(AABBi, get_longest_axis, sarray(), varray());
+	bind_method(AABBi, get_longest_axis_index, sarray(), varray());
+	bind_method(AABBi, get_longest_axis_size, sarray(), varray());
+	bind_method(AABBi, get_shortest_axis, sarray(), varray());
+	bind_method(AABBi, get_shortest_axis_index, sarray(), varray());
+	bind_method(AABBi, get_shortest_axis_size, sarray(), varray());
+	bind_method(AABBi, get_endpoint, sarray("idx"), varray());
+
 	/* Transform3D */
 
 	bind_method(Transform3D, inverse, sarray(), varray());

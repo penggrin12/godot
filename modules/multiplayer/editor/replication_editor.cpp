@@ -227,6 +227,8 @@ ReplicationEditor::ReplicationEditor() {
 		Variant::PACKED_VECTOR3_ARRAY,
 		Variant::PACKED_COLOR_ARRAY,
 		Variant::PACKED_VECTOR4_ARRAY,
+
+		Variant::AABBI,
 	};
 	prop_selector->set_type_filter(types);
 	prop_selector->connect("selected", callable_mp(this, &ReplicationEditor::_pick_node_property_selected));
