@@ -206,6 +206,8 @@ namespace Godot.NativeInterop
 
         public static partial void godotsharp_variant_new_aabb(out godot_variant r_dest, scoped in Aabb p_aabb);
 
+        public static partial void godotsharp_variant_new_aabbi(out godot_variant r_dest, scoped in AabbI p_aabbi);
+
         public static partial void godotsharp_variant_new_dictionary(out godot_variant r_dest,
             scoped in godot_dictionary p_dict);
 
@@ -272,6 +274,8 @@ namespace Godot.NativeInterop
         public static partial Quaternion godotsharp_variant_as_quaternion(scoped in godot_variant p_self);
 
         public static partial Aabb godotsharp_variant_as_aabb(scoped in godot_variant p_self);
+
+        public static partial AabbI godotsharp_variant_as_aabbi(scoped in godot_variant p_self);
 
         public static partial Basis godotsharp_variant_as_basis(scoped in godot_variant p_self);
 

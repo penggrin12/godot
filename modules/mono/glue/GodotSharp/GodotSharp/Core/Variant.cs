@@ -151,6 +151,7 @@ public partial struct Variant : IDisposable
             Type.PackedVector3Array => AsVector3Array(),
             Type.PackedVector4Array => AsVector4Array(),
             Type.PackedColorArray => AsColorArray(),
+            Type.AabbI => AsAabbI(),
             Type.Nil => null,
             Type.Max or _ =>
                 throw new InvalidOperationException($"Invalid Variant type: {NativeVar.DangerousSelfRef.Type}"),
@@ -271,6 +272,10 @@ public partial struct Variant : IDisposable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Aabb AsAabb() =>
         VariantUtils.ConvertToAabb((godot_variant)NativeVar);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public AabbI AsAabbI() =>
+        VariantUtils.ConvertToAabbI((godot_variant)NativeVar);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Color AsColor() =>
@@ -461,6 +466,9 @@ public partial struct Variant : IDisposable
     public static explicit operator Aabb(Variant from) => from.AsAabb();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static explicit operator AabbI(Variant from) => from.AsAabbI();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static explicit operator Color(Variant from) => from.AsColor();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -612,6 +620,9 @@ public partial struct Variant : IDisposable
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Variant CreateFrom(Aabb from) => from;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Variant CreateFrom(AabbI from) => from;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Variant CreateFrom(Color from) => from;
@@ -802,6 +813,10 @@ public partial struct Variant : IDisposable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator Variant(Aabb from) =>
         CreateTakingOwnershipOfDisposableValue(VariantUtils.CreateFromAabb(from));
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Variant(AabbI from) =>
+        CreateTakingOwnershipOfDisposableValue(VariantUtils.CreateFromAabbI(from));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator Variant(Color from) =>

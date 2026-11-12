@@ -83,6 +83,7 @@ const HashMap<String, String> pascal_case_part_overrides = _create_hashmap_from_
 		{ "WM", "WM" },
 		{ "XR", "XR" },
 		{ "XRAPI", "XRApi" },
+		{ "AABBI", "AabbI" }, // Without this: "Aabbi"
 });
 
 String _get_pascal_case_part_override(String p_part, bool p_input_is_upper = true) {

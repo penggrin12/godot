@@ -636,6 +636,10 @@ void godotsharp_variant_new_aabb(godot_variant *r_dest, const AABB *p_aabb) {
 	memnew_placement(r_dest, Variant(*p_aabb));
 }
 
+void godotsharp_variant_new_aabbi(godot_variant *r_dest, const AABBi *p_aabbi) {
+	memnew_placement(r_dest, Variant(*p_aabbi));
+}
+
 void godotsharp_variant_new_dictionary(godot_variant *r_dest, const Dictionary *p_dict) {
 	memnew_placement(r_dest, Variant(*p_dict));
 }
@@ -784,6 +788,13 @@ godot_aabb godotsharp_variant_as_aabb(const Variant *p_self) {
 	godot_aabb raw_dest;
 	AABB *dest = (AABB *)&raw_dest;
 	memnew_placement(dest, AABB(p_self->operator ::AABB()));
+	return raw_dest;
+}
+
+godot_aabbi godotsharp_variant_as_aabbi(const Variant *p_self) {
+	godot_aabbi raw_dest;
+	AABBi *dest = (AABBi *)&raw_dest;
+	memnew_placement(dest, AABBi(p_self->operator ::AABBi()));
 	return raw_dest;
 }
 
@@ -1645,6 +1656,7 @@ static const void *unmanaged_callbacks[]{
 	(void *)godotsharp_variant_new_transform3d,
 	(void *)godotsharp_variant_new_projection,
 	(void *)godotsharp_variant_new_aabb,
+	(void *)godotsharp_variant_new_aabbi,
 	(void *)godotsharp_variant_new_dictionary,
 	(void *)godotsharp_variant_new_array,
 	(void *)godotsharp_variant_new_packed_byte_array,
@@ -1673,6 +1685,7 @@ static const void *unmanaged_callbacks[]{
 	(void *)godotsharp_variant_as_plane,
 	(void *)godotsharp_variant_as_quaternion,
 	(void *)godotsharp_variant_as_aabb,
+	(void *)godotsharp_variant_as_aabbi,
 	(void *)godotsharp_variant_as_basis,
 	(void *)godotsharp_variant_as_transform3d,
 	(void *)godotsharp_variant_as_projection,

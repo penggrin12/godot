@@ -199,6 +199,7 @@ namespace Godot.NativeInterop
             [FieldOffset(0)] public double _float;
             [FieldOffset(0)] public Transform2D* _transform2d;
             [FieldOffset(0)] public Aabb* _aabb;
+            [FieldOffset(0)] public AabbI* _aabbi;
             [FieldOffset(0)] public Basis* _basis;
             [FieldOffset(0)] public Transform3D* _transform3d;
             [FieldOffset(0)] public Projection* _projection;
@@ -287,6 +288,12 @@ namespace Godot.NativeInterop
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => _data._aabb;
+        }
+
+        public readonly unsafe AabbI* AabbI
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => _data._aabbi;
         }
 
         public readonly unsafe Basis* Basis

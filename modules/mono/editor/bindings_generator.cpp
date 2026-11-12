@@ -3796,6 +3796,7 @@ bool BindingsGenerator::_arg_default_value_is_assignable_to_type(const Variant &
 		case Variant::QUATERNION:
 		case Variant::PLANE:
 		case Variant::AABB:
+		case Variant::AABBI:
 		case Variant::COLOR:
 		case Variant::VECTOR2:
 		case Variant::RECT2:
@@ -4549,6 +4550,13 @@ bool BindingsGenerator::_arg_default_value_from_variant(const Variant &p_val, Ar
 					_get_vector3_cs_ctor_args(aabb.size) + "))";
 			r_iarg.def_param_mode = ArgumentInterface::NULLABLE_VAL;
 		} break;
+		case Variant::AABBI: {
+			AABBi aabbi = p_val.operator ::AABBi();
+			r_iarg.default_argument = "new AabbI(new Vector3I(" +
+					_get_vector3i_cs_ctor_args(aabbi.position) + "), new Vector3I(" +
+					_get_vector3i_cs_ctor_args(aabbi.size) + "))";
+			r_iarg.def_param_mode = ArgumentInterface::NULLABLE_VAL;
+		} break;
 		case Variant::RECT2: {
 			Rect2 rect = p_val.operator Rect2();
 			r_iarg.default_argument = "new Rect2(new Vector2(" +
@@ -4747,6 +4755,7 @@ void BindingsGenerator::_populate_builtin_type_interfaces() {
 	INSERT_STRUCT_TYPE(Quaternion, Quaternion)
 	INSERT_STRUCT_TYPE(Transform3D, Transform3D)
 	INSERT_STRUCT_TYPE(AABB, Aabb)
+	INSERT_STRUCT_TYPE(AABBi, AabbI)
 	INSERT_STRUCT_TYPE(Color, Color)
 	INSERT_STRUCT_TYPE(Plane, Plane)
 	INSERT_STRUCT_TYPE(Vector4, Vector4)

@@ -678,6 +678,8 @@ namespace Godot
                         return VariantUtils.CreateFrom(projection);
                     case Aabb aabb:
                         return VariantUtils.CreateFrom(aabb);
+                    case AabbI aabbi:
+                        return VariantUtils.CreateFrom(aabbi);
                     case Color color:
                         return VariantUtils.CreateFrom(color);
                     case Plane plane:

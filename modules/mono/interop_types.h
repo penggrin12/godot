@@ -146,6 +146,12 @@ typedef struct {
 	uint8_t _dont_touch_that[GODOT_AABB_SIZE];
 } godot_aabb;
 
+#define GODOT_AABBI_SIZE (sizeof(int32_t) * 6)
+
+typedef struct {
+	uint8_t _dont_touch_that[GODOT_AABBI_SIZE];
+} godot_aabbi;
+
 #define GODOT_BASIS_SIZE (sizeof(real_t) * 9)
 
 typedef struct {

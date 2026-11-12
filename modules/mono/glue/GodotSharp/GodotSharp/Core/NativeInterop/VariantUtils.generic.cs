@@ -117,6 +117,9 @@ public partial class VariantUtils
         if (typeof(T) == typeof(Aabb))
             return CreateFromAabb(UnsafeAs<Aabb>(from));
 
+        if (typeof(T) == typeof(AabbI))
+            return CreateFromAabbI(UnsafeAs<AabbI>(from));
+
         if (typeof(T) == typeof(Color))
             return CreateFromColor(UnsafeAs<Color>(from));
 
@@ -317,6 +320,9 @@ public partial class VariantUtils
 
         if (typeof(T) == typeof(Aabb))
             return UnsafeAsT(ConvertToAabb(variant));
+
+        if (typeof(T) == typeof(AabbI))
+            return UnsafeAsT(ConvertToAabbI(variant));
 
         if (typeof(T) == typeof(Color))
             return UnsafeAsT(ConvertToColor(variant));

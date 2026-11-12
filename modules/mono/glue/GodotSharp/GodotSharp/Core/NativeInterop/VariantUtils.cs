@@ -91,6 +91,12 @@ namespace Godot.NativeInterop
             return ret;
         }
 
+        public static godot_variant CreateFromAabbI(AabbI from)
+        {
+            NativeFuncs.godotsharp_variant_new_aabbi(out godot_variant ret, from);
+            return ret;
+        }
+
         // Explicit name to make it very clear
         public static godot_variant CreateFromCallableTakingOwnershipOfDisposableValue(godot_callable from)
             => new() { Type = Variant.Type.Callable, Callable = from };
@@ -474,6 +480,11 @@ namespace Godot.NativeInterop
             => p_var.Type == Variant.Type.Aabb ?
                 *p_var.Aabb :
                 NativeFuncs.godotsharp_variant_as_aabb(p_var);
+
+        public static unsafe AabbI ConvertToAabbI(in godot_variant p_var)
+            => p_var.Type == Variant.Type.AabbI ?
+                *p_var.AabbI :
+                NativeFuncs.godotsharp_variant_as_aabbi(p_var);
 
         public static Color ConvertToColor(in godot_variant p_var)
             => p_var.Type == Variant.Type.Color ?

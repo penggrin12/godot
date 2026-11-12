@@ -106,6 +106,9 @@ namespace Godot.NativeInterop
                     if (type == typeof(Aabb))
                         return Variant.Type.Aabb;
 
+                    if (type == typeof(AabbI))
+                        return Variant.Type.AabbI;
+
                     if (type == typeof(Color))
                         return Variant.Type.Color;
 
